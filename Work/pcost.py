@@ -11,11 +11,12 @@ def portfolio_cost(filename):
     with open(filename, "rt") as f:
         rows = csv.reader(f)
         headers = next(rows)
-        for line in rows:
+        for index, line in enumerate(rows, start=1):
+            record = dict(zip(headers, line))
             try:
-                cost_total += int(line[1]) * float(line[2])
+                cost_total += int(record["shares"]) * float(record["price"])
             except ValueError:
-                print("Can not read this", line)
+                print(f"Row {index} Couldn't convert: {line}")
     return cost_total
 
 
