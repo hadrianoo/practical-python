@@ -33,26 +33,6 @@ def read_prices(filename):
     return prices
 
 
-# def current_price(filename1, filename2):
-#     prices = read_prices(filename1)
-#     portfolio = read_portfolio(filename2)
-#
-#     total_cost = 0.0
-#     for s in portfolio:
-#         total_cost += s['shares'] * s['price']
-#     print('Total cost', total_cost)
-#
-#     total_value = 0.0
-#     for s in portfolio:
-#
-#         total_value += s['shares'] * prices[s['name']]
-#
-#     print('Current value', total_value)
-#     print('Gain', total_value - total_cost)
-#
-# current_price("data/prices.csv", "data/portfolio.csv")
-
-
 def make_report(portfolio, prices):
     report = []
     locale.setlocale(locale.LC_ALL, 'en_US.UTF-8')
@@ -66,14 +46,19 @@ def make_report(portfolio, prices):
     return report
 
 
-# portfolio = read_portfolio('Data/portfolio.csv')
-portfolio = read_portfolio('Data/portfoliodate.csv')
-prices = read_prices('Data/prices.csv')
-report = make_report(portfolio, prices)
+def print_report(reportdata):
+    headers = ('Name', 'Shares', 'Price', 'Change')
+    print(f"{headers[0]:>10s}{headers[1]:>10s}{headers[2]:>10s}{headers[3]:>10s}")
+    print('---------- --------- --------- ----------')
+    for name, shares, price, change in reportdata:
+        print(f"{name:>10s}{shares:>10d}{price:>10.2f}{change:>10.2f}")
 
-headers = ('Name', 'Shares', 'Price', 'Change')
-print(f"{headers[0]:>10s}{headers[1]:>10s}{headers[2]:>10s}{headers[3]:>10s}")
-print('---------- --------- --------- ----------')
-for name, shares, price, change in report:
-    print(f"{name:>10s}{shares:>10d}{price:>10.2f}{change:>10.2f}")
 
+def portfolio_report(portfolio_filename, prices_filename):
+    portfolio = read_portfolio(portfolio_filename)
+    prices = read_prices(prices_filename)
+    report = make_report(portfolio, prices)
+    print_report(report)
+
+
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
