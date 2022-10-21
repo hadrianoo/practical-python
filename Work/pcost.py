@@ -23,11 +23,19 @@ def portfolio_cost(filename):
     # return cost_total
 
 
-if len(sys.argv) == 2:
-    filepath = sys.argv[1]
-else:
-    filepath = input("file path: ")
-cost = portfolio_cost(filepath)
+# if len(sys.argv) == 2:
+#     filepath = sys.argv[1]
+# else:
+#     filepath = input("file path: ")
+# cost = portfolio_cost(filepath)
 # cost = portfolio_cost('Data/portfolio.csv')
 
-print('Total cost', cost)
+def main(args):
+    if len(args) != 2:
+        raise SystemExit('Usage: %s portfoliofile' % args[0])
+    print('Total cost:', portfolio_cost(args[1]))
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
