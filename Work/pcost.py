@@ -39,3 +39,5 @@ def main(args):
 if __name__ == '__main__':
     import sys
     main(sys.argv)
+
+# python pcost.py Data/portfolio.csv

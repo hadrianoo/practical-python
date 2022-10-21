@@ -7,9 +7,10 @@ import fileparse
 
 
 def read_portfolio(filename):
-    return fileparse.parse_csv(filename,
-                               select=["name", "shares", "price"],
-                               types=[str, int, float])
+    with open(filename) as file:
+        return fileparse.parse_csv(file,
+                                   select=["name", "shares", "price"],
+                                   types=[str, int, float])
     # with open(filename, "rt") as f:
     #     portfolio = []
     #     rows = csv.reader(f)
@@ -25,9 +26,10 @@ def read_portfolio(filename):
 
 
 def read_prices(filename):
-    return dict(fileparse.parse_csv(filename,
-                                    types=[str, float],
-                                    has_headers=False))
+    with open(filename) as file:
+        return dict(fileparse.parse_csv(file,
+                                        types=[str, float],
+                                        has_headers=False))
     # with open(filename, "rt") as f:
     #     prices = {}
     #     rows = csv.reader(f)
@@ -78,3 +80,4 @@ if __name__ == '__main__':
 
 
 # portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
+# python report.py Data/portfolio.csv Data/prices.csv
