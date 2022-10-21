@@ -51,10 +51,9 @@ def parse_csv(filename, select=None, types=None, has_headers=True, delimiter=','
                 record = tuple(row)
             records.append(record)
 
-
         return records
 
 
 # prices = parse_csv('Data/prices.csv', types=[str, float], has_headers=False)
-prices = parse_csv('Data/missing.csv', types=[str, int, float], silence_errors=False)
-print(prices)
+# prices = parse_csv('Data/missing.csv', types=[str, int, float], silence_errors=False)
+# print(prices)
