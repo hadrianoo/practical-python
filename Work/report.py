@@ -4,6 +4,8 @@
 
 import stock
 import fileparse
+import tableformat
+
 
 
 def read_portfolio(filename):
@@ -55,25 +57,31 @@ def make_report(portfolio, prices):
     return report
 
 
-def print_report(reportdata):
-    headers = ('Name', 'Shares', 'Price', 'Change')
-    print(f"{headers[0]:>10s}{headers[1]:>10s}{headers[2]:>10s}{headers[3]:>10s}")
-    print('---------- --------- --------- ----------')
+def print_report(reportdata, formatter):
+    formatter.headings(['Name', 'Shares', 'Price', 'Change'])
+    # print(f"{headers[0]:>10s}{headers[1]:>10s}{headers[2]:>10s}{headers[3]:>10s}")
+    # print(('-' * 10 + ' ')*len(headers))
     for name, shares, price, change in reportdata:
-        print(f"{name:>10s}{shares:>10d}{price:>10.2f}{change:>10.2f}")
+        # print(f"{name:>10s}{shares:>10d}{price:>10.2f}{change:>10.2f}")
+        rowdata = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
+        formatter.row(rowdata)
 
 
-def portfolio_report(portfolio_filename, prices_filename):
+def portfolio_report(portfolio_filename, prices_filename, fmt="txt"):
     portfolio = read_portfolio(portfolio_filename)
     prices = read_prices(prices_filename)
     report = make_report(portfolio, prices)
-    print_report(report)
+    formatter = tableformat.create_formatter(fmt)
+    print_report(report, formatter)
 
 
 def main(args):
-    if len(args) != 3:
+    if 4 < len(args) < 3:
         raise SystemExit('Usage: %s portfile pricefile' % args[0])
-    portfolio_report(args[1], args[2])
+    if len(args) == 3:
+        portfolio_report(args[1], args[2])
+    else:
+        portfolio_report(args[1], args[2], args[3])
 
 
 if __name__ == '__main__':
