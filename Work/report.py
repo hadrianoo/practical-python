@@ -2,15 +2,17 @@
 #
 # Exercise 2.4
 
-
+import stock
 import fileparse
 
 
 def read_portfolio(filename):
     with open(filename) as file:
-        return fileparse.parse_csv(file,
-                                   select=["name", "shares", "price"],
-                                   types=[str, int, float])
+        portdicts = fileparse.parse_csv(file,
+                                        select=["name", "shares", "price"],
+                                        types=[str, int, float])
+    return [stock.Stock(d["name"], d["shares"], d["price"]) for d in portdicts]
+
     # with open(filename, "rt") as f:
     #     portfolio = []
     #     rows = csv.reader(f)
@@ -44,10 +46,10 @@ def read_prices(filename):
 def make_report(portfolio, prices):
     report = []
     for line in portfolio:
-        line = (line["name"],
-                line["shares"],
-                prices[line["name"]],
-                prices[line["name"]] - line["price"]
+        line = (line.name,
+                line.shares,
+                prices[line.name],
+                prices[line.name] - line.price
                 )
         report.append(line)
     return report

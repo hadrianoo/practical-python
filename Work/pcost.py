@@ -2,14 +2,13 @@
 #
 # Exercise 1.27
 
-import csv
-import sys
+
 import report
 
 
 def portfolio_cost(filename):
     portfolio = report.read_portfolio(filename)
-    return sum([item["shares"] * item["price"] for item in portfolio])
+    return sum([item.cost() for item in portfolio])
 
     # with open(filename, "rt") as f:
     #     rows = csv.reader(f)
@@ -22,13 +21,6 @@ def portfolio_cost(filename):
     #             print(f"Row {index} Couldn't convert: {line}")
     # return cost_total
 
-
-# if len(sys.argv) == 2:
-#     filepath = sys.argv[1]
-# else:
-#     filepath = input("file path: ")
-# cost = portfolio_cost(filepath)
-# cost = portfolio_cost('Data/portfolio.csv')
 
 def main(args):
     if len(args) != 2:
