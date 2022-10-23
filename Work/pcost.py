@@ -8,7 +8,8 @@ import report
 
 def portfolio_cost(filename):
     portfolio = report.read_portfolio(filename)
-    return sum([item.cost for item in portfolio])
+    # return sum([item.cost for item in portfolio])
+    return portfolio.total_cost
 
     # with open(filename, "rt") as f:
     #     rows = csv.reader(f)
