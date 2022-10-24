@@ -31,4 +31,3 @@ if __name__ == '__main__':
             n-= 1
 
     countdown(1000000)
-    
