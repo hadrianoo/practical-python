@@ -7,8 +7,10 @@ import fileparse
 import tableformat
 from stock import Stock
 from portfolio import Portfolio
+from timethis import timethis
 
 
+@timethis
 def read_portfolio(filename, **opts):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
