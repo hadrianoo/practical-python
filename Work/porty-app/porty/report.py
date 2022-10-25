@@ -3,27 +3,16 @@
 # Exercise 2.4
 
 
-import fileparse
-import tableformat
-from stock import Stock
-from portfolio import Portfolio
-from timethis import timethis
+from . import fileparse
+from . import tableformat
+from .portfolio import Portfolio
 
 
-@timethis
 def read_portfolio(filename, **opts):
     '''
     Read a stock portfolio file into a list of dictionaries with keys
     name, shares, and price.
     '''
-    # with open(filename) as file:
-    #     portdicts = fileparse.parse_csv(file,
-    #                                     select=['name', 'shares', 'price'],
-    #                                     types=[str, int, float],
-    #                                     **opts)
-    #
-    # portfolio = [Stock(**d) for d in portdicts]
-    # return Portfolio(portfolio)
     with open(filename) as lines:
         return Portfolio.from_csv(lines, **opts)
 
@@ -33,15 +22,6 @@ def read_prices(filename):
         return dict(fileparse.parse_csv(file,
                                         types=[str, float],
                                         has_headers=False))
-    # with open(filename, "rt") as f:
-    #     prices = {}
-    #     rows = csv.reader(f)
-    #     for data in rows:
-    #         try:
-    #             prices[data[0]] = float(data[1])
-    #         except IndexError:
-    #             pass
-    # return dict(prices)
 
 
 def make_report(portfolio, prices):
@@ -58,10 +38,7 @@ def make_report(portfolio, prices):
 
 def print_report(reportdata, formatter):
     formatter.headings(['Name', 'Shares', 'Price', 'Change'])
-    # print(f"{headers[0]:>10s}{headers[1]:>10s}{headers[2]:>10s}{headers[3]:>10s}")
-    # print(('-' * 10 + ' ')*len(headers))
     for name, shares, price, change in reportdata:
-        # print(f"{name:>10s}{shares:>10d}{price:>10.2f}{change:>10.2f}")
         rowdata = [name, str(shares), f'{price:0.2f}', f'{change:0.2f}']
         formatter.row(rowdata)
 

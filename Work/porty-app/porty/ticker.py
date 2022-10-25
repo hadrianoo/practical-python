@@ -1,9 +1,9 @@
 # ticker.py
 
-from follow import follow
+from .follow import follow
 import csv
-from tableformat import create_formatter
-import report
+from .tableformat import create_formatter
+from . import report
 
 
 def filter_symbols(rows, names):
